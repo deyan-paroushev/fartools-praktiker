@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FARTOOLS × Holiday Parks — Дискусия за партньорство</title>
+  <meta name="description" content="Френски инженеринг за електроинструменти в подкрепа на експанзията на Holiday Parks в България." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.js"></script>
+  <style>
+    /* Base reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; }
+    :root {
+      --fartools-yellow: #ffed00;
+      --fartools-dark: #1a1a1a;
+      --text-primary: #1a1a1a;
+      --text-secondary: #333333;
+      --text-light: #555555;
+      --border-light: #e5e7eb;
+      --bg-light: #f9fafb;
+      --bg-card: #ffffff;
+      scroll-behavior: smooth;
+      --step-1: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.6;
+      color: var(--text-primary);
+      background: #ffffff;
+      scroll-snap-type: y mandatory;
+    }
+
+    .presentation {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      box-shadow: 0 0 40px rgba(0,0,0,0.08);
+    }
+
+    .slide {
+      padding: 60px 80px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      page-break-after: always;
+      border-bottom: 1px solid var(--border-light);
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+    }
+    .slide:last-child { border-bottom: none; }
+
+    .slide.cover {
+      background: linear-gradient(135deg, var(--fartools-dark) 0%, #333333 100%);
+      color: white;
+      text-align: center;
+      position: relative;
+    }
+    .slide.dark {
+      background: linear-gradient(135deg, var(--fartools-dark) 0%, #333333 100%);
+      color: white;
+    }
+
+    .fartools-logo-container {
+      display: flex; align-items: center; justify-content: center; margin-bottom: 2em;
+    }
+    .fartools-circle {
+      width: 80px; height: 80px;
+      background-image: url('https://i.imgur.com/TyjL1fs.png');
+      background-size: contain; background-repeat: no-repeat; background-position: center;
+      margin-right: 20px;
+    }
+    .fartools-text {
+      font-family: 'Roboto', sans-serif;
+      font-size: 3.5em; font-weight: 700; color: var(--fartools-yellow); letter-spacing: 0.02em;
+    }
+
+    h1 {
+      font-family: 'Inter', sans-serif;
+      font-size: 2.8em; font-weight: 700; margin-bottom: 1em; line-height: 1.2; color: var(--text-primary);
+    }
+    .slide.cover h1, .slide.dark h1 { color: white; }
+
+    h2 {
+      font-family: 'Inter', sans-serif;
+      font-size: 2.2em; font-weight: 700; margin-bottom: 1.2em; color: var(--text-primary);
+      position: relative; padding-bottom: 0.5em;
+    }
+    h2::after {
+      content: ''; position: absolute; bottom: 0; left: 0; width: 60px; height: 3px; background: var(--fartools-yellow);
+    }
+    .slide.cover h2, .slide.dark h2 { color: white; }
+
+    h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.4em; font-weight: 600; margin: 1.5em 0 1em 0; color: var(--text-primary); display: flex; align-items: center;
+    }
+    .slide.dark h3 { color: white; }
+
+    .feather {
+      width: 24px; height: 24px; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+      fill: none; margin-right: 12px; color: var(--fartools-yellow);
+    }
+
+    .subtitle { font-size: 1.2em; font-weight: 400; margin-bottom: 2em; color: var(--text-light); line-height: 1.6; }
+    .slide.cover .subtitle, .slide.dark .subtitle { color: rgba(255,255,255,0.85); }
+
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px; margin: 2.5em 0;
+    }
+    .stat-card {
+      background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);
+      padding: 2em; border-radius: 12px; text-align: center; border: 2px solid rgba(255, 237, 0, 0.3);
+    }
+    .stat-number { font-size: 3em; font-weight: 800; color: var(--fartools-yellow); display: block; }
+    .stat-label { font-size: 1em; color: white; margin-top: 0.5em; font-weight: 500; }
+    .stat-detail { font-size: 0.85em; color: rgba(255, 255, 255, 0.85); margin-top: 0.3em; }
+
+    .two-column {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start; margin: 2em 0;
+    }
+
+    .highlight-box {
+      background: var(--fartools-yellow); color: var(--fartools-dark);
+      padding: 2.5em; border-radius: 12px; margin: 2.5em 0; text-align: center;
+      box-shadow: 0 6px 25px rgba(255, 237, 0, 0.25);
+    }
+    .highlight-box h3 {
+      color: var(--fartools-dark);
+      margin-bottom: 1em;
+    }
+    .highlight-box p {
+      color: var(--fartools-dark);
+    }
+
+    .card {
+      background: var(--bg-card); border: 2px solid var(--fartools-yellow);
+      padding: 2em; border-radius: 12px; margin: 1.5em 0; transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .slide.dark .card {
+      background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);
+      border-color: rgba(255, 237, 0, 0.5); color: white;
+    }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
+    .card h4 {
+      color: var(--text-primary); font-weight: 600; margin-bottom: 1em; display: flex; align-items: center; font-size: 1.1em; gap: 8px;
+    }
+    .slide.dark .card h4 { color: var(--fartools-yellow); }
+
+    .feature-list { list-style: none; margin: 1.5em 0; }
+    .feature-list li {
+      padding: 0.6em 0; padding-left: 2em; position: relative;
+      font-size: var(--step-1); line-height: 1.6; color: var(--text-secondary);
+    }
+    .slide.dark .feature-list li { color: rgba(255, 255, 255, 0.9); }
+    .feature-list li:before {
+      content: ''; position: absolute; left: 0; top: 1em; width: 8px; height: 8px; background: var(--fartools-yellow); border-radius: 50%;
+    }
+
+    .product-showcase {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px; margin: 2.5em 0;
+    }
+    .product-card {
+      background: white; border-radius: 12px; padding: 25px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06); transition: all 0.3s ease; border-top: 4px solid var(--fartools-yellow);
+    }
+    .product-card:hover { transform: translateY(-5px); box-shadow: 0 8px 30px rgba(0,0,0,0.12); }
+    .product-image {
+      width: 100%; height: 200px; background: #f8f9fa; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center; margin-bottom: 1.5em; position: relative; overflow: hidden;
+    }
+    .product-image img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+    .product-title { font-size: 1.1em; font-weight: 600; color: var(--text-primary); margin-bottom: 0.5em; }
+    .product-subtitle { font-size: 0.9em; color: var(--text-light); margin-bottom: 1em; }
+    .badge {
+      background: #10b981; color: white; padding: 0.3em 0.8em; border-radius: 20px; font-size: 0.8em; font-weight: 600; display: inline-block; margin-bottom: 1em;
+    }
+
+    .timeline-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin: 2.5em 0; }
+    .timeline-card {
+      background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); padding: 2em; border-radius: 12px; border-left: 6px solid var(--fartools-yellow);
+    }
+    .timeline-phase { font-size: 1.2em; font-weight: 700; color: var(--fartools-yellow); margin-bottom: 0.5em; }
+    .timeline-location { font-size: 1em; font-weight: 600; color: white; margin-bottom: 1em; }
+
+    .contact-info { background: var(--fartools-dark); color: white; padding: 2.5em; border-radius: 12px; margin-top: 2em; }
+    .contact-info h3 { color: var(--fartools-yellow); margin-top: 0; }
+    .contact-info p { color: white; }
+
+    .company-info { margin-top: 3em; text-align: center; color: rgba(255,255,255,0.9); }
+    .company-info p { font-size: 0.9em; margin: 0.5em 0; color: rgba(255,255,255,0.9); }
+
+    strong { font-weight: 600; color: var(--text-primary); }
+    .slide.dark strong { color: white; }
+
+    p { font-size: var(--step-1); line-height: 1.6; margin-bottom: 1em; color: var(--text-secondary); }
+    .slide.dark p { color: rgba(255,255,255,0.9); }
+
+    /* Print */
+    @page { size: A4; margin: 14mm; }
+    @media print {
+      html, body { background: #fff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .presentation { box-shadow: none !important; }
+      .slide { page-break-after: always; min-height: auto; padding: 18mm 14mm; border: none; }
+      .slide.cover, .slide.dark { background: #1a1a1a !important; color: #fff !important; }
+      .highlight-box { box-shadow: none; }
+      /* Page numbers */
+      body { counter-reset: page; }
+      .slide::after {
+        counter-increment: page;
+        content: counter(page);
+        position: fixed; right: 10mm; bottom: 8mm;
+        font: 600 11px/1 Inter, system-ui, sans-serif; color: rgba(0,0,0,0.6);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .slide { padding: 40px 30px; }
+      h1 { font-size: 2.2em; }
+      h2 { font-size: 1.8em; }
+      .fartools-text { font-size: 2.5em; }
+      .two-column, .stats-grid, .timeline-grid {
+        grid-template-columns: 1fr; gap: 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="presentation" role="main" aria-label="Презентация FARTOOLS за Videolux">
+    <!-- Cover Slide -->
+    <section class="slide cover" aria-label="Корица">
+      <div class="fartools-logo-container">
+        <div class="fartools-circle"></div>
+        <div class="fartools-text">FARTOOLS</div>
+      </div>
+      <h1>Дискусия за партньорство</h1>
+      <h2>В подкрепа на Holiday Parks от Videolux Holding</h2>
+      <div class="subtitle">Френски инженеринг за българските търговски дестинации</div>
+
+      <div class="highlight-box">
+        <h3>Защо се срещаме</h3>
+        <p>Докато Videolux инвестира в Holiday Parks из цяла България, специализираните брандове стават важни фактори, които мотивират пътуването на клиентите до тези търговски дестинации.</p>
+      </div>
+
+      <div class="company-info">
+        <p><strong style="color: white;">FARGROUP EUROPE</strong> | Saint-Pierre-des-Corps, France</p>
+        <p>FARTOOLS е основният бранд на Far Group, френска компания, основана 1991 г.</p>
+      </div>
+    </section>
+
+    <!-- Understanding Videolux -->
+    <section class="slide dark" aria-label="Стратегия Holiday Parks">
+      <h2>Вашата Holiday Parks стратегия</h2>
+      <div class="subtitle">Какво разбираме за експанзията на Holiday Parks (част от Videolux Holding с Technopolis и Praktiker)</div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-number">34</span>
+          <div class="stat-label">Technopolis магазини</div>
+          <div class="stat-detail">Лидерство в електроника</div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">17</span>
+          <div class="stat-label">Praktiker магазини (BG)</div>
+          <div class="stat-detail">17-ти хипермаркет открит: 12.04.2024, София</div>
+        </div>
+                        <div class="stat-card">
+          <span class="stat-number">5</span>
+          <div class="stat-label">Отворени Holiday Parks</div>
+          <div class="stat-detail">напр.: Пазарджик, Перник, Стара Загора, Хасково</div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">3+</span>
+          <div class="stat-label">В разработка</div>
+          <div class="stat-detail">София, Враца — експанзия</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h4><i data-feather="map-pin" class="feather"></i>Вашата стратегическа визия</h4>
+        <p>Holiday Parks създават интегрирани търговски дестинации, където клиентите намират всичко на едно място. Множество брандове под една инвестиция намаляват времето за пътуване на клиентите, като същевременно максимизират стойността на пазаруването.</p>
+      </div>
+
+      <div class="timeline-grid">
+        <div class="timeline-card">
+          <div class="timeline-phase">Оперативни</div>
+          <div class="timeline-location">Перник • Хасково</div>
+          <p>Доказана концепция — големи търговски паркове с Praktiker котви, обслужващи регионални клиенти</p>
+        </div>
+        <div class="timeline-card">
+          <div class="timeline-phase">В развитие</div>
+          <div class="timeline-location">София • Враца</div>
+          <p>Стратегическа експанзия в ключови пазари с флагман Holiday Park локации</p>
+        </div>
+        <div class="timeline-card">
+          <div class="timeline-phase">Бъдещи</div>
+          <div class="timeline-location">Други градове</div>
+          <p>Продължаващо развитие според пазарните възможности и осъществимостта</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- What FARTOOLS Offers -->
+    <section class="slide" aria-label="Как FARTOOLS подкрепя целите">
+      <h2>Как FARTOOLS може да подкрепи вашите цели</h2>
+      <div class="subtitle">Инструменти като привличащ фактор за Holiday Parks</div>
+
+      <div class="two-column">
+        <div>
+          <div class="card">
+            <h4><i data-feather="target" class="feather"></i>Уникални продуктови категории</h4>
+            <ul class="feature-list">
+              <li><strong>X-FIT 18V платформа</strong> — една батерия, много инструменти</li>
+              <li><strong>REX Renovator</strong> — REX60 / REX80 / REX120/200 с четки 60/80/120 мм</li>
+              <li><strong>Професионално заваряване</strong> — компактни MMA / TIG системи</li>
+              <li><strong>Инструменти за разрушаване</strong> — SDS-Max чукове и къртачи</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h4><i data-feather="users" class="feather"></i>Ползи за клиентите</h4>
+            <ul class="feature-list">
+              <li>Батерийната екосистема насърчава многократни покупки</li>
+              <li>Френската инженерия подкрепя премиум позициониране</li>
+              <li>Професионалните инструменти привличат изпълнители и сериозни DIY потребители</li>
+              <li>Специализираните продукти намаляват нуждата от пазаруване другаде</li>
+            </ul>
+          </div>
+        </div>
+
+        <div>
+          <div class="card">
+            <h4><i data-feather="trending-up" class="feather"></i>Потенциална стойност за Holiday Parks</h4>
+            <ul class="feature-list">
+              <li><strong>Привличане на клиенти</strong> — специализираните инструменти привличат от по-широка област</li>
+              <li><strong>Кръстосано пазаруване</strong> — клиентите на инструменти често купуват и от Technopolis</li>
+              <li><strong>Професионален сегмент</strong> — изпълнителите правят по-големи и регулярни покупки</li>
+              <li><strong>Повтарящ се бизнес</strong> — батерии, консумативи и аксесоари</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h4><i data-feather="settings" class="feather"></i>Подкрепа за внедряване</h4>
+            <ul class="feature-list">
+              <li>Стандартизирани магазинни подредби за множество локации</li>
+              <li>Обучение по продукти за персонала на Praktiker</li>
+              <li>Маркетингова подкрепа за откриване на нови Holiday Parks</li>
+              <li>Категории по сайт: Building, Cleaning (Wet & Dry / Anticlogging), Drywall, Tiler, Welding, Stationary</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trust / service & warranty -->
+      <div class="card">
+        <h4><i data-feather="shield" class="feather"></i>Доказуем сервиз и гаранции</h4>
+        <ul class="feature-list">
+          <li><em>Click & Change</em> за X-FIT — премиум сервиз (ако е приложимо)</li>
+          <li>Гаранции: 3 г. ръчни машини, 5 г. стационарни (+ части до 10 г.), 2 г. Garden/Fartools One, 1 г. X-Fit батерии</li>
+          <li>Пълна гама четки/консумативи за REX за ротации и повторяемост</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Product Categories -->
+    <section class="slide" aria-label="Продуктова гама">
+      <h2>FARTOOLS продуктова гама</h2>
+      <div class="subtitle">Френски инженеринг за български професионалисти и DIY ентусиасти</div>
+
+      <div class="product-showcase">
+        <div class="product-card">
+          <div class="product-image">
+            <img src="https://i.imgur.com/o6nULlp.jpeg" alt="Angle Grinder — професионален ъглошлайф" loading="lazy" decoding="async" width="800" height="600" />
+          </div>
+          <div class="badge">PRECISION CUTTING</div>
+          <div class="product-title">Професионален ъглошлайф</div>
+          <div class="product-subtitle">Прецизно рязане и шлифоване на метал</div>
+          <ul class="feature-list">
+            <li>Високопроизводителни ъглошлайфи за метал</li>
+            <li>Антивибрационна технология</li>
+            <li>Професионална употреба в металообработка</li>
+            <li>Съвместим с широка гама дискове и аксесоари</li>
+          </ul>
+        </div>
+
+        <div class="product-card">
+          <div class="product-image">
+            <img src="https://i.imgur.com/k9GGjn4.jpeg" alt="REX Renovator — машини за декапиране" loading="lazy" decoding="async" width="800" height="600" />
+          </div>
+          <div class="badge">УНИКАЛЕН В БЪЛГАРИЯ</div>
+          <div class="product-title">REX Renovator (REX60 / REX80 / REX120/200)</div>
+          <div class="product-subtitle">Система с четки 60/80/120 мм за премахване на покрития</div>
+          <ul class="feature-list">
+            <li>Електрически машини за премахване на боя и аксесоари</li>
+            <li>Проекти за ремонт и реставрация</li>
+            <li>Няма пряка конкуренция на българския пазар</li>
+            <li>Активна общност и налични консумативи</li>
+          </ul>
+        </div>
+
+        <div class="product-card">
+          <div class="product-image">
+            <img src="https://i.imgur.com/TAyUNcS.jpeg" alt="Професионални SDS-Max къртачи" loading="lazy" decoding="async" width="800" height="600" />
+          </div>
+          <div class="badge">ПРОФЕСИОНАЛНИ</div>
+          <div class="product-title">Инструменти за разрушаване</div>
+          <div class="product-subtitle">Тежки къртачи и чукове</div>
+          <ul class="feature-list">
+            <li>SDS-Max ротационни чукове и къртачи</li>
+            <li>Антивибрационна технология</li>
+            <li>За строителни и ремонтни професионалисти</li>
+            <li>Високостойностни транзакции</li>
+          </ul>
+        </div>
+
+        <div class="product-card">
+          <div class="product-image">
+            <img src="https://i.imgur.com/JhfYBGT.jpeg" alt="Компактни заваръчни апарати MMA и TIG" loading="lazy" decoding="async" width="800" height="600" />
+          </div>
+          <div class="badge">ЗАВАРЯВАНЕ</div>
+          <div class="product-title">Компактни заваръчни апарати</div>
+          <div class="product-subtitle">MMA и TIG системи</div>
+          <ul class="feature-list">
+            <li>Професионално заваръчно оборудване</li>
+            <li>Преносими и работилнични решения</li>
+            <li>Привлича професионалисти по металообработка</li>
+            <li>Пълна екосистема от аксесоари</li>
+          </ul>
+        </div>
+
+        <div class="product-card">
+          <div class="product-image">
+            <img src="https://i.imgur.com/DYcO6nC.jpeg" alt="Прецизни настолни и торцови триони" loading="lazy" decoding="async" width="800" height="600" />
+          </div>
+          <div class="badge">ДЪРВООБРАБОТКА</div>
+          <div class="product-title">Прецизни триони</div>
+          <div class="product-subtitle">Настолни и торцови триони</div>
+          <ul class="feature-list">
+            <li>Прецизно режещо оборудване</li>
+            <li>За дървообработка и строителство</li>
+            <li>Премиум позициониране</li>
+            <li>Дълги гаранционни периоди изграждат доверие</li>
+          </ul>
+        </div>
+
+        <div class="product-card">
+          <div class="product-image">
+            <img src="https://i.imgur.com/Yva9OZ3.jpeg" alt="Професионални мокро/сухо прахосмукачки" loading="lazy" decoding="async" width="800" height="600" />
+          </div>
+          <div class="badge">ИНДУСТРИАЛНИ</div>
+          <div class="product-title">Професионални прахосмукачки</div>
+          <div class="product-subtitle">Мокро/сухо почистване на строителни обекти</div>
+          <ul class="feature-list">
+            <li>Индустриални прахосмукачки с капацитет 20–30 L</li>
+            <li>Почистване на строителни обекти</li>
+            <li>Допълва продажбите на електроинструменти</li>
+            <li>Приходи от консумативи и филтри</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Business Model Discussion -->
+    <section class="slide dark" aria-label="Структура на партньорството">
+      <h2>Дискусия за структурата на партньорството</h2>
+      <div class="subtitle">Как бихме могли да работим заедно по експанзията на Holiday Parks</div>
+
+      <div class="two-column">
+        <div>
+          <div class="card">
+            <h4><i data-feather="handshake" class="feather"></i>Какво предлагаме</h4>
+            <ul class="feature-list">
+              <li><strong>Утвърден бранд</strong> — 30+ години френска инженерна репутация</li>
+              <li><strong>Уникални продукти</strong> — артикули, които не се намират лесно другаде</li>
+              <li><strong>Професионален фокус</strong> — привлича по-стойностни клиенти</li>
+              <li><strong>Готовност за експанзия</strong> — поддръжка на множество Holiday Park обекти</li>
+              <li><strong>Подкрепа за обучение</strong> — продуктово образование за персонала</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h4><i data-feather="shield" class="feather"></i>Доказуем сервиз и гаранции</h4>
+            <ul class="feature-list">
+              <li>Click & Change за X-FIT — бърза подмяна към адрес</li>
+              <li>Гаранции по категории — 3/5/2 г. и 1 г. за батерии X-FIT</li>
+              <li>Консумативи/четки REX — осигурена наличност</li>
+            </ul>
+          </div>
+        </div>
+
+        <div>
+          <div class="card">
+            <h4><i data-feather="award" class="feather"></i>Какво печелите</h4>
+            <ul class="feature-list">
+              <li><strong>Привличане на клиенти</strong> — специализираните инструменти привличат от по-широки области</li>
+              <li><strong>Кръстосано пазаруване</strong> — купувачите на инструменти често се нуждаят и от други артикули</li>
+              <li><strong>Професионален сегмент</strong> — изпълнителите правят редовни, големи покупки</li>
+              <li><strong>Диференциация</strong> — продукти, които конкурентите не могат лесно да съпоставят</li>
+              <li><strong>Възможности за маржове</strong> — специализираните инструменти командват по-добри маржове</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+              <div class="highlight-box">
+        <h3 style="color: #1a1a1a;">Възможността за партньорство</h3>
+        <p style="color: #1a1a1a;">FARTOOLS става специализиран бранд в магазините Praktiker, който диференцира Holiday Parks от стандартните търговски локации. Нашата уникална продуктова гама дава на клиентите допълнителни причини да изберат вашата дестинация пред местните алтернативи.</p>
+      </div>
+
+      <div class="timeline-grid">
+        <div class="timeline-card">
+          <div class="timeline-phase">Фаза 1: Пилот</div>
+          <div class="timeline-location">София Holiday Park</div>
+          <p>Тестване на партньорството на флагман локация с пълна продуктова гама и промоционална подкрепа</p>
+        </div>
+        <div class="timeline-card">
+          <div class="timeline-phase">Фаза 2: Експанзия</div>
+          <div class="timeline-location">Съществуващи Holiday Parks</div>
+          <p>Разгръщане на успешната формула в Перник, Хасково и други оперативни локации</p>
+        </div>
+        <div class="timeline-card">
+          <div class="timeline-phase">Фаза 3: Растеж</div>
+          <div class="timeline-location">Нови развития</div>
+          <p>Стандартно FARTOOLS присъствие във Враца и бъдещите Holiday Park локации</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Next Steps -->
+    <section class="slide" aria-label="Септемврийска среща">
+      <h2>Точки за дискусия на септемврийската среща</h2>
+      <div class="subtitle">Mathieu Guibert, Export Director — 8–12 септември, София</div>
+
+      <div class="two-column">
+        <div>
+          <div class="card">
+            <h4><i data-feather="clipboard" class="feather"></i>Теми за обсъждане</h4>
+            <ul class="feature-list">
+              <li><strong>Продуктово съответствие</strong> — кои FARTOOLS категории работят най-добре в Holiday Parks</li>
+              <li><strong>Изисквания за пространство</strong> — оптимална площ за показване и подредба</li>
+              <li><strong>Пилотна програма</strong> — тестов подход за локацията в София</li>
+              <li><strong>Нужди от обучение</strong> — образование на персонала по технически продукти</li>
+              <li><strong>Маркетингова подкрепа</strong> — дейности за откриване и текущи промоции</li>
+              <li><strong>Показатели за ефективност</strong> — как да измерваме успеха на партньорството</li>
+            </ul>
+          </div>
+        </div>
+
+        <div>
+          <div class="card">
+            <h4><i data-feather="check-circle" class="feather"></i>Потенциални резултати</h4>
+            <ul class="feature-list">
+              <li><strong>Рамка за партньорство</strong> — условия за съвместна работа</li>
+              <li><strong>Ангажимент за пилот</strong> — тестова програма в София Holiday Park</li>
+              <li><strong>Пътна карта за експанзия</strong> — график за допълнителни локации</li>
+              <li><strong>Структура за подкрепа</strong> — обучение, маркетинг и оперативна помощ</li>
+              <li><strong>Измерване на успеха</strong> — KPI и график за преглед</li>
+              <li><strong>Дългосрочна визия</strong> — потенциал за растеж в мрежата Holiday Parks</li>
+            </ul>
+          </div>
+
+          <div class="contact-info">
+            <h3><i data-feather="mail" class="feather"></i>Координация на срещата</h3>
+            <p><strong style="color: white;">Деян Пароушев</strong><br />Business Development България<br />info@advisa.tech</p>
+            <p><strong style="color: white;">Mathieu Guibert</strong><br />Export Director, FARGROUP EUROPE<br />m.guibert@groupe-sigma.net</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Thank You -->
+    <section class="slide cover" aria-label="Благодарности">
+      <div class="fartools-logo-container">
+        <div class="fartools-circle"></div>
+        <div class="fartools-text">FARTOOLS</div>
+      </div>
+
+      <h1>Благодарим ви</h1>
+      <h2>Очакваме с нетърпение нашата дискусия</h2>
+
+      <div class="subtitle">Френски инженеринг в подкрепа на българската търговска иновация</div>
+
+      <div class="company-info">
+        <p><strong style="color: white;">FARGROUP EUROPE</strong></p>
+        <p>192, Avenue Yves Farge, 37700 Saint-Pierre-des-Corps, FRANCE</p>
+        <p>Tel: +33 (0)2 47 46 56 56 | www.fartools.com</p>
+        <p style="margin-top: 1em;"><strong style="color: white;">Готови да подкрепим вашата Holiday Parks експанзия</strong></p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => { feather.replace(); });
+
+    document.addEventListener('keydown', function(e) {
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const currentIndex = getCurrentSlideIndex(slides);
+
+      if ((e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') && currentIndex < slides.length - 1) {
+        e.preventDefault();
+        slides[currentIndex + 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else if ((e.key === 'ArrowUp' || e.key === 'PageUp') && currentIndex > 0) {
+        e.preventDefault();
+        slides[currentIndex - 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else if (e.key === 'Home') {
+        e.preventDefault(); slides[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else if (e.key === 'End') {
+        e.preventDefault(); slides[slides.length - 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+
+    function getCurrentSlideIndex(slides) {
+      let best = 0, minDist = Infinity;
+      slides.forEach((slide, i) => {
+        const dist = Math.abs(slide.getBoundingClientRect().top);
+        if (dist < minDist) { minDist = dist; best = i; }
+      });
+      return best;
+    }
+  </script>
+</body>
+</html>
